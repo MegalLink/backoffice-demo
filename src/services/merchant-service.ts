@@ -31,13 +31,10 @@ export const merchantService = {
     };
 
     if (type === API_TYPES.ON_DEMAND) {
-      // Convert to Unix timestamps (seconds, not milliseconds)
       payload.start_datetime = data.date_from
-        ? Math.floor(data.date_from.getTime() / 1000)
-        : Math.floor(Date.now() / 1000);
-      payload.end_datetime = data.date_to
-        ? Math.floor(data.date_to.getTime() / 1000)
-        : Math.floor(Date.now() / 1000);
+        ? data.date_from.getTime()
+        : Date.now();
+      payload.end_datetime = data.date_to ? data.date_to.getTime() : Date.now();
     }
 
     const endpoint =
