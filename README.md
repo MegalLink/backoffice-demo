@@ -33,7 +33,7 @@ A React application built with TypeScript and Vite for merchant configuration an
 1. Clone the repository:
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/MegalLink/backoffice-demo.git
 cd backoffice-demo
 ```
 
