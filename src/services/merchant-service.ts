@@ -16,18 +16,12 @@ export interface MerchantRequest {
   end_datetime?: number;
 }
 
-export interface MerchantResponse {
-  success: boolean;
-  message: string;
-  data?: any;
-}
-
 export const merchantService = {
-  create: async (data: MerchantFormData): Promise<MerchantResponse> => {
+  create: async (data: MerchantFormData): Promise<any> => {
     const type =
       data.executionMode === EXECUTION_MODES.ON_DEMAND
         ? API_TYPES.ON_DEMAND
-        : API_TYPES.AUTOMATIC;
+        : API_TYPES.SCHEDULED;
 
     const payload: MerchantRequest = {
       merchant_id: data.merchant_id,
@@ -49,7 +43,7 @@ export const merchantService = {
     const endpoint =
       type === API_TYPES.ON_DEMAND ? ENDPOINTS.ON_DEMAND : ENDPOINTS.SCHEDULE;
 
-    const response = await apiClient.post<MerchantResponse>(endpoint, payload);
+    const response = await apiClient.post(endpoint, payload);
     return response.data;
   },
 };

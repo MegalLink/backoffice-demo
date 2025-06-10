@@ -5,7 +5,7 @@ export const EXECUTION_MODES = {
 
 export const API_TYPES = {
   ON_DEMAND: "onDemand",
-  AUTOMATIC: "automatic",
+  SCHEDULED: "scheduled",
 } as const;
 
 export const ENDPOINTS = {
