@@ -11,6 +11,23 @@ interface DateRangePickerProps {
   disabled?: boolean;
 }
 
+const formatDateForInput = (date: Date | null | undefined): string => {
+  if (!date) return "";
+
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  const hours = String(date.getHours()).padStart(2, "0");
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+
+  return `${year}-${month}-${day}T${hours}:${minutes}`;
+};
+
+const parseInputDate = (value: string): Date | null => {
+  if (!value) return null;
+  return new Date(value);
+};
+
 export const DateRangePicker = ({
   control,
   validateDateRange,
@@ -34,15 +51,9 @@ export const DateRangePicker = ({
               fullWidth
               label="Fecha y hora de inicio"
               type="datetime-local"
-              value={
-                field.value
-                  ? new Date(field.value).toISOString().slice(0, 16)
-                  : ""
-              }
+              value={formatDateForInput(field.value)}
               onChange={(e) => {
-                field.onChange(
-                  e.target.value ? new Date(e.target.value) : null
-                );
+                field.onChange(parseInputDate(e.target.value));
               }}
               error={!!error}
               helperText={error?.message}
@@ -72,15 +83,9 @@ export const DateRangePicker = ({
               fullWidth
               label="Fecha y hora de fin"
               type="datetime-local"
-              value={
-                field.value
-                  ? new Date(field.value).toISOString().slice(0, 16)
-                  : ""
-              }
+              value={formatDateForInput(field.value)}
               onChange={(e) => {
-                field.onChange(
-                  e.target.value ? new Date(e.target.value) : null
-                );
+                field.onChange(parseInputDate(e.target.value));
               }}
               error={!!error}
               helperText={error?.message}
